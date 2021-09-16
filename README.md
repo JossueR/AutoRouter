@@ -1,16 +1,16 @@
-#AutoRouter
+# AutoRouter
 AutoRouter is a small lib for routing in PHP object-oriented projects
 
-#Prerequisitos
+# Prerequisitos
 * PHP 5.6 or greater
 * URL Rewriting
 
-#Installation
+# Installation
 ``` 
 composer require jossuer/auto_router
 ```
 
-#Apache URL Rewriting
+# Apache URL Rewriting
 .htaccess
 
 ``` 
@@ -26,7 +26,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.php
 ```
 
-#Usage
+# Usage
 index.php
 ```php
 <?php

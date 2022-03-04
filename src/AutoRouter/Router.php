@@ -149,7 +149,7 @@ class Router
 
     public function exec(){
         $status = false;
-        $class_path = str_replace($this->rootPath,"", $_SERVER['REQUEST_URI']);
+        $class_path = ltrim($_SERVER['REQUEST_URI'], $this->rootPath);
         $class_path = explode("?", rtrim($class_path,"/"));
 
         $class_path = $class_path[0];

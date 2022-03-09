@@ -175,6 +175,7 @@ class Router
             }
 
         }
+        $rawMethodName = $method;
 
 
 
@@ -194,7 +195,7 @@ class Router
                     $method = $this->defaultMethod . $this->methodSuffix;;
 
                     if (method_exists($instance, $method)) {
-                        $instance->$method();
+                        $instance->$method($rawMethodName);
                         $status = true;
                     }
                 }

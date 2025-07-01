@@ -14,6 +14,10 @@ class Router
     private $controllerSuffix = "Controller";
     private $methodSuffix = "Action";
 
+    private static  $controllerClassName;
+
+    private static $methodClassName;
+
 
     /**
      * @var IRouteValidator
@@ -24,6 +28,24 @@ class Router
     {
 
     }
+
+    /**
+     * @return mixed
+     */
+    public static function getControllerClassName()
+    {
+        return self::$controllerClassName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public static function getMethodClassName()
+    {
+        return self::$methodClassName;
+    }
+
+
 
     /**
      * @param IRouteValidator $validator
@@ -186,15 +208,16 @@ class Router
             try {
 
                 $instance = new $class_name();
-
+                self::$controllerClassName = $class_name;
                 if (method_exists($instance, $method) && ($this->validator == null || $this->validator->validate($class_name,$method)) ) {
-
+                    self::$methodClassName = $method;
                     $instance->$method();
                     $status = true;
                 } else {
-                    $method = $this->defaultMethod . $this->methodSuffix;;
+                    $method = $this->defaultMethod . $this->methodSuffix;
 
                     if (method_exists($instance, $method)) {
+                        self::$methodClassName = $method;
                         $instance->$method($rawMethodName);
                         $status = true;
                     }

@@ -14,5 +14,7 @@
             "AutoRouter\\": "src/AutoRouter"
         }
     },
-    "require": {}
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    }
 }

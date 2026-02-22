@@ -24,9 +24,13 @@ class Router
      */
     private $validator;
 
-    public function __construct()
-    {
+    private $emitExceptions = false;
 
+    private $lastException = null;
+
+    public function __construct($emitExceptions = false)
+    {
+        $this->emitExceptions = $emitExceptions;
     }
 
     /**
@@ -169,6 +173,33 @@ class Router
 
 
 
+    /**
+     * @return Exception|null
+     */
+    public function getLastException()
+    {
+        return $this->lastException;
+    }
+
+    /**
+     * @param bool $emitExceptions
+     * @return $this
+     */
+    public function setEmitExceptions($emitExceptions)
+    {
+        $this->emitExceptions = (bool)$emitExceptions;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getEmitExceptions()
+    {
+        return $this->emitExceptions;
+    }
+
     public function exec(){
         $status = false;
         $class_path = ltrim($_SERVER['REQUEST_URI'], $this->rootPath);
@@ -223,7 +254,10 @@ class Router
                     }
                 }
             } catch (Exception $e) {
-                //var_dump($e);
+                $this->lastException = $e;
+                if ($this->emitExceptions) {
+                    throw $e;
+                }
             }
         }
 
